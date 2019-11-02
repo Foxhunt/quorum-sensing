@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import { Stage } from '@inlet/react-pixi'
 
 import Cell from './cell'
@@ -11,9 +12,17 @@ for (let i = 0; i < 10; i++) {
     inducers.push(i)
 }
 
+const BlockStage = styled(Stage)`
+    display: block;
+`
+
 export default () => {
-    return <Stage>
-        {cells.map(index => <Cell key={index}/>)}
-        {inducers.map(index => <Inducer key={index}/>)}
-    </Stage>
+    return (
+        <BlockStage
+            width={window.innerWidth}
+            height={window.innerHeight} >
+            {cells.map(index => <Cell key={index} />)}
+            {inducers.map(index => <Inducer key={index} />)}
+        </BlockStage>
+    )
 }

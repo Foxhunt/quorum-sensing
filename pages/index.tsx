@@ -19,16 +19,22 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Title = styled.div`
+  position: absolute;
+  width: 100%;
+
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 80px;
+  font-size: 4em;
   line-height: 94px;
+
+  text-align: center;
+  color: #ffffff;
 `
 
 export default () => <>
-  <GlobalStyle></GlobalStyle>
+  <GlobalStyle />
   <Title>[ˈkvoːʁʊm]</Title>
   <Canvas />
 </>
