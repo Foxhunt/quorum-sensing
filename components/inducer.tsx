@@ -15,12 +15,20 @@ export default () => {
         setDirection(direction + 0.01 % Math.PI * 2)
     })
 
+    const [image, setImage] = useState('/ellipse.png')
+
     return <Sprite
         interactive
-        pointerdown={event => {
-            console.dir(event)
+        pointerdown={() => {
+            setImage('./rectangle.png')
         }}
-        image="/ellipse.png"
+        pointerup={() => {
+            setImage('/ellipse.png')
+        }}
+        pointerupoutside={() => {
+            setImage('/ellipse.png')
+        }}
+        image={image}
         anchor={0.5}
         position={position} />
 }
