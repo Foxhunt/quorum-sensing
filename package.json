@@ -7,7 +7,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@inlet/react-pixi": "^1.1.6",
     "next": "latest",
+    "pixi.js": "^5.1.5",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "styled-components": "^4.1.3"
