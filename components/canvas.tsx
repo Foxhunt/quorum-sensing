@@ -17,10 +17,11 @@ const BlockStage = styled(Stage)`
     display: block;
 `
 
-export default () => {
+export default ({ hideTitle }: { hideTitle: () => void }) => {
     const [width, height] = useWindowSize()
     return (
         <BlockStage
+            onPointerDown={hideTitle}
             width={width}
             height={height} >
             {cells.map(index => <Cell key={index} />)}

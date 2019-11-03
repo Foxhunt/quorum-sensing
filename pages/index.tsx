@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
+import { AnimatePresence, motion, Variants } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
 const Canvas = dynamic(
@@ -18,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const Title = styled.div`
+const Title = styled(motion.div)`
   position: absolute;
   width: 100%;
 
@@ -33,8 +35,37 @@ const Title = styled.div`
   color: #ffffff;
 `
 
-export default () => <>
-  <GlobalStyle />
-  <Title>[ˈkvoːʁʊm]</Title>
-  <Canvas />
-</>
+const title: Variants = {
+  visible: {
+    y: 0,
+    transition: { duration: 4 }
+  },
+  hidden: {
+    y: '-100%',
+    transition: { duration: 2 }
+  }
+}
+
+export default () => {
+  const [touched, setTouched] = useState(false)
+
+  return <>
+    <GlobalStyle />
+    <AnimatePresence>
+      {
+        !touched &&
+        <Title
+          key={'1'}
+          variants={title}
+          initial={'hidden'}
+          animate={'visible'}
+          exit={'hidden'}
+          transition={{ type: 'tween', ease: 'circOut' }} >
+          [ˈkvoːʁʊm]
+        </Title>
+      }
+    </AnimatePresence>
+    <Canvas
+      hideTitle={() => setTouched(true)} />
+  </>
+}
