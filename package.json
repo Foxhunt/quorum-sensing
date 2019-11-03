@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@inlet/react-pixi": "^1.1.6",
+    "framer-motion": "^1.6.15",
     "next": "latest",
     "pixi.js": "^5.1.5",
     "react": "16.8.6",
