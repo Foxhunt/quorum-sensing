@@ -46,7 +46,7 @@ const title: Variants = {
   }
 }
 
-export default () => {
+export default function Index() {
   const [touched, setTouched] = useState(false)
 
   return <>
