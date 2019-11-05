@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { Sprite, useTick } from '@inlet/react-pixi'
+import { Sprite } from '@inlet/react-pixi'
 import { WorldContext } from './world'
 
 type inducerProps = {
@@ -8,19 +8,7 @@ type inducerProps = {
 }
 
 export default function Inducer({ index }: inducerProps) {
-    const { positions, setPositions } = useContext(WorldContext)
-    const [velocity] = useState(0.5 * Math.random())
-    const [direction, setDirection] = useState(Math.random() * Math.PI * 2)
-
-    useTick(_delta => {
-        const delta = _delta ? _delta : 0
-        const dX = Math.cos(direction) * velocity * delta
-        const dY = Math.sin(direction) * velocity * delta
-        positions.inducers[index][0] += dX
-        positions.inducers[index][1] += dY
-        setPositions({ ...positions })
-        setDirection(direction - 0.01)
-    })
+    const { inducers } = useContext(WorldContext)
 
     const [image, setImage] = useState('/ellipse.png')
 
@@ -37,5 +25,5 @@ export default function Inducer({ index }: inducerProps) {
         }}
         image={image}
         anchor={0.5}
-        position={positions.inducers[index]} />
+        position={[inducers[index][0], inducers[index][1]]} />
 }

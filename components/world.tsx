@@ -1,50 +1,81 @@
 import { createContext, useState, useEffect } from 'react'
+import { useTick } from '@inlet/react-pixi'
 import { useWindowSize } from 'web-api-hooks'
 import Inducer from './inducer'
 import Cell from './cell'
 
-export type position = [number, number]
-type positions = {
-    cells: position[],
-    inducers: position[]
-}
-type setPositions = (positions: positions) => void
+export type cells = [number, number, number, number][]
+type setPositions = (positions: cells) => void
 export type worldContext = {
-    positions: positions,
-    setPositions: setPositions
+    cells: cells,
+    setCells: setPositions
+    inducers: cells,
+    setInducers: setPositions,
+    tick: boolean,
+    setTick: (tick: boolean) => void
 }
 
 export const WorldContext = createContext<worldContext>({
-    positions: { cells: [], inducers: [] },
-    setPositions: () => null
-})
+    cells: [],
+    setCells: () => null,
+    inducers: [],
+    setInducers: () => null,
+    tick: false,
+    setTick: () => null
+},
+)
 
 export default function () {
-    const [positions, setPositions] = useState<positions>({ cells: [], inducers: [] })
-
     const [width, height] = useWindowSize()
+    const [cells, setCells] = useState<cells>([])
+    const [inducers, setInducers] = useState<cells>([])
+    const [tick, setTick] = useState(false)
 
     useEffect(() => {
-        for (let i = 0; i < 10; i++) {
-            positions.cells.push([width * Math.random(), height * Math.random()])
+        for (let i = 0; i < 9; i++) {
+            cells.push([
+                width * Math.random(),
+                height * Math.random(),
+                0.001 * Math.random(),
+                Math.random() * Math.PI * 2
+            ])
         }
-        setPositions({ ...positions })
+        setCells([...cells])
     }, [])
 
-    return <WorldContext.Provider value={{ positions, setPositions }}>
-        {positions.inducers.map(
-                    (position, index) =>
-                        <Inducer
-                            position={position}
-                            index={index}
-                            key={index} />
-                )}
-                {positions.cells.map(
-                    (position, index) =>
-                        <Cell
-                            position={position}
-                            index={index}
-                            key={index} />
-                )}
+    useTick(_delta => {
+        const delta = _delta ? _delta : 0
+        for (const cell of cells) {
+            const dX = Math.cos(cell[3]) * cell[2] * delta
+            const dY = Math.sin(cell[3]) * cell[2] * delta
+            cell[0] += dX
+            cell[1] += dY
+            cell[3] += 0.1
+        }
+        for (const inducer of inducers) {
+            const dX = Math.cos(inducer[3]) * inducer[2] * delta
+            const dY = Math.sin(inducer[3]) * inducer[2] * delta
+            inducer[0] += dX
+            inducer[1] += dY
+            inducer[3] += 0.1
+        }
+        setTick(!tick)
+    })
+
+    return <WorldContext.Provider value={{ tick, setTick, cells, setCells, inducers, setInducers }}>
+        {inducers.map(
+            (position, index) =>
+                <Inducer
+                    position={position}
+                    index={index}
+                    key={index} />
+        )}
+        {cells.map(
+            (position, index) =>
+                <Cell
+                    position={position}
+                    index={index}
+                    key={index} />
+        )}
     </WorldContext.Provider>
 }
