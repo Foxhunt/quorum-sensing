@@ -15,7 +15,7 @@ export default function Cell({ index }: cellProps) {
     return <Sprite
         interactive
         pointerdown={() => {
-            inducers.push([cells[index][0], cells[index][1], 0.01 * Math.random(), Math.random() * Math.PI * 2])
+            inducers.push([cells[index][0], cells[index][1], 0.1 * Math.random(), Math.random() * Math.PI * 2])
             setTick(!tick)
         }}
         pointerup={() => {

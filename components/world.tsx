@@ -32,11 +32,11 @@ export default function () {
     const [tick, setTick] = useState(false)
 
     useEffect(() => {
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 20; i++) {
             cells.push([
                 width * Math.random(),
                 height * Math.random(),
-                0.001 * Math.random(),
+                0.2 * Math.random(),
                 Math.random() * Math.PI * 2
             ])
         }
@@ -50,17 +50,19 @@ export default function () {
             const dY = Math.sin(cell[3]) * cell[2] * delta
             cell[0] += dX
             cell[1] += dY
-            cell[3] += 0.1
+            cell[3] -= 0.01
         }
         for (const inducer of inducers) {
             const dX = Math.cos(inducer[3]) * inducer[2] * delta
             const dY = Math.sin(inducer[3]) * inducer[2] * delta
             inducer[0] += dX
             inducer[1] += dY
-            inducer[3] += 0.1
+            inducer[3] += 0.01
         }
         setTick(!tick)
     })
+
+    console.log(inducers.length)
 
     return <WorldContext.Provider value={{ tick, setTick, cells, setCells, inducers, setInducers }}>
         {inducers.map(
