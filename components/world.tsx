@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
-import { useTick } from '@inlet/react-pixi'
+import { useTick, ParticleContainer } from '@inlet/react-pixi'
 import { useWindowSize } from 'web-api-hooks'
 import Inducer from './inducer'
 import Cell from './cell'
@@ -25,7 +25,7 @@ export const WorldContext = createContext<worldContext>({
 },
 )
 
-export default function () {
+export default function World({ spawn }: { spawn: boolean }) {
     const [width, height] = useWindowSize()
     const [cells, setCells] = useState<cells>([])
     const [inducers, setInducers] = useState<cells>([])
@@ -60,18 +60,28 @@ export default function () {
             inducer[3] += 0.01
         }
         setTick(!tick)
+        if (spawn) {
+            inducers.push([
+                width * Math.random(),
+                height * Math.random(),
+                0.1 * Math.random(),
+                Math.random() * Math.PI * 2
+            ])
+        }
     })
 
     console.log(inducers.length)
 
     return <WorldContext.Provider value={{ tick, setTick, cells, setCells, inducers, setInducers }}>
-        {inducers.map(
-            (position, index) =>
-                <Inducer
-                    position={position}
-                    index={index}
-                    key={index} />
-        )}
+        <ParticleContainer interactive properties={{ position: true }}>
+            {inducers.map(
+                (position, index) =>
+                    <Inducer
+                        position={position}
+                        index={index}
+                        key={index} />
+            )}
+        </ParticleContainer>
         {cells.map(
             (position, index) =>
                 <Cell

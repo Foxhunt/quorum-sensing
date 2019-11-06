@@ -8,21 +8,24 @@ type cellProps = {
 }
 
 export default function Cell({ index }: cellProps) {
-    const { cells, inducers, tick, setTick } = useContext(WorldContext)
+    const { cells, inducers } = useContext(WorldContext)
 
-    const [image, setImage] = useState('/rectangle.png')
+    const [image] = useState('/rectangle.png')
+
+    const [spawnIntervall, setSpawnIntervall] = useState<number>()
 
     return <Sprite
         interactive
         pointerdown={() => {
-            inducers.push([cells[index][0], cells[index][1], 0.1 * Math.random(), Math.random() * Math.PI * 2])
-            setTick(!tick)
+            setSpawnIntervall(setInterval(() => {
+                inducers.push([cells[index][0], cells[index][1], 0.1 * Math.random(), Math.random() * Math.PI * 2])
+            }))
         }}
         pointerup={() => {
-            setImage('/rectangle.png')
+            clearInterval(spawnIntervall)
         }}
         pointerupoutside={() => {
-            setImage('/rectangle.png')
+            clearInterval(spawnIntervall)
         }}
         image={image}
         anchor={0.5}

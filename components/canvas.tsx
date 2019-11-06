@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { Stage } from '@inlet/react-pixi'
 import { useWindowSize } from 'web-api-hooks'
@@ -10,13 +11,17 @@ const BlockStage = styled(Stage)`
 
 export default function Canvas({ hideTitle }: { hideTitle: () => void }) {
     const [width, height] = useWindowSize()
+    const [spawn, setSpawn] = useState(false)
 
     return (
         <BlockStage
-            onPointerDown={hideTitle}
+            onPointerDown={() => {
+                hideTitle()
+                setSpawn(!spawn)
+            }}
             width={width}
             height={height} >
-            <World />
+            <World spawn={spawn} />
         </BlockStage>
     )
 }
