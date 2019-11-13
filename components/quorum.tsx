@@ -41,8 +41,8 @@ export default function Quorum() {
                 attractors: [
                     function (bodyA, bodyB) {
                         return {
-                            x: (bodyA.position.x - bodyB.position.x) * 1e-7,
-                            y: (bodyA.position.y - bodyB.position.y) * 1e-7,
+                            x: (bodyA.position.x - bodyB.position.x) * 1e-6,
+                            y: (bodyA.position.y - bodyB.position.y) * 1e-6,
                         };
                     }
                 ]
@@ -60,7 +60,7 @@ export default function Quorum() {
             const cell = Bodies.circle(
                 width * Math.random(),
                 height * Math.random(),
-                10)
+                10, {frictionAir: 0})
             World.add(engine.world, cell)
             cells.push(cell)
         }
@@ -69,7 +69,7 @@ export default function Quorum() {
             const inducer = Bodies.circle(
                 width * Math.random(),
                 height * Math.random(),
-                5)
+                5, {frictionAir: 0})
             World.add(engine.world, inducer)
             inducers.push(inducer)
         }
