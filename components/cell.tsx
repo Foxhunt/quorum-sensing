@@ -1,33 +1,24 @@
-import { useState, useContext } from 'react'
 import { Sprite } from '@inlet/react-pixi'
-import { WorldContext } from './world'
 
 type cellProps = {
-    index: number,
-    position: number[]
+    image: string,
+    position: [number, number]
 }
 
-export default function Cell({ index }: cellProps) {
-    const { cells, inducers } = useContext(WorldContext)
-
-    const [image] = useState('/rectangle.png')
-
-    const [spawnIntervall, setSpawnIntervall] = useState<number>()
+export default function Cell({ position, image }: cellProps) {
 
     return <Sprite
         interactive
         pointerdown={() => {
-            setSpawnIntervall(setInterval(() => {
-                inducers.push([cells[index][0], cells[index][1], 0.1 * Math.random(), Math.random() * Math.PI * 2])
-            }))
+            console.log("pointerdown!")
         }}
         pointerup={() => {
-            clearInterval(spawnIntervall)
+            console.log("pointerup!")
         }}
         pointerupoutside={() => {
-            clearInterval(spawnIntervall)
+            console.log("pointerupoutside!")
         }}
         image={image}
         anchor={0.5}
-        position={[cells[index][0], cells[index][1]]} />
+        position={position} />
 }

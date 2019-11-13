@@ -9,6 +9,8 @@
   "dependencies": {
     "@inlet/react-pixi": "^1.1.6",
     "framer-motion": "^1.6.15",
+    "matter-attractors": "^0.1.6",
+    "matter-js": "^0.14.2",
     "next": "latest",
     "pixi.js": "^5.1.5",
     "react": "16.8.6",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "@types/node": "12.0.12",
     "@types/react": "16.8.23",
+    "@types/matter-js": "^0.10.4",
     "@types/react-dom": "16.8.4",
     "@types/styled-components": "4.1.16",
     "babel-plugin-styled-components": "^1.10.0",
