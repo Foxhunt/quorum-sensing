@@ -60,7 +60,7 @@ export default function Quorum() {
             const cell = Bodies.circle(
                 width * Math.random(),
                 height * Math.random(),
-                10, {frictionAir: 0})
+                10, { frictionAir: 0.1 })
             World.add(engine.world, cell)
             cells.push(cell)
         }
@@ -69,7 +69,7 @@ export default function Quorum() {
             const inducer = Bodies.circle(
                 width * Math.random(),
                 height * Math.random(),
-                5, {frictionAir: 0})
+                5, { frictionAir: 0.1 })
             World.add(engine.world, inducer)
             inducers.push(inducer)
         }

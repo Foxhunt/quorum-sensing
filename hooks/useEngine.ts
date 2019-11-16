@@ -15,12 +15,6 @@ export default function useEngine(width: number, height: number) {
   useEffect(() => {
     engine.world.gravity = { x: 0, y: 0, scale: 1 }
 
-    const leftWall = Bodies.rectangle(0, height / 2, 10, height + 10, { isStatic: true })
-    const rightWall = Bodies.rectangle(width, height / 2, 10, height + 10, { isStatic: true })
-    const bottomWall = Bodies.rectangle(width / 2, height, width + 10, 10, { isStatic: true })
-    const topWall = Bodies.rectangle(width / 2, 0, width + 10, 10, { isStatic: true })
-    World.add(engine.world, [leftWall, rightWall, bottomWall, topWall])
-
     Runner.run(runner, engine)
 
     return () => {
