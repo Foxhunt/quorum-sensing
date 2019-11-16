@@ -12,6 +12,14 @@ const Canvas = dynamic(
 )
 
 const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: "Pilowlava";
+    src: url("/Pilowlava-Regular.otf");
+  }
+  @font-face {
+    font-family: "Space Mono";
+    src: url("/i7dMIFZifjKcF5UAWdDRaPpZUFWaGw.ttf");
+  }
   html {
     user-select: none;
   }

@@ -15,34 +15,50 @@ const Container = styled.footer`
 
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    overflow-y: auto;
 `
 
 const Logo = styled.div`
     display: inline-block;
     
-    width: 300px;
+    max-width: 300px;
+    flex: 1;
 
     border-right: 5px solid #000000;
 
     text-align: center;
-    font: Regular 40px/48px Pilowlava;
+    font: 40px/48px Pilowlava;
     letter-spacing: 0;
     color: #000000;
     opacity: 1;
 `
 
 const About = styled.div`
-    display: inline-block;
+    display: flex;
 
-    width: 300px;
+    justify-content: center;
+    align-items: center;
+
+    max-width: 300px;
+    flex: 1;
 
     border-left: 5px solid #000000;
 
     text-align: center;
-    font: Regular 40px/48px Pilowlava;
+    font: Bold 24px Space Mono;
     letter-spacing: 0;
     color: #000000;
     opacity: 1;
+`
+
+const Pill = styled.div`
+    display: inline-block;
+    width: 250px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 5px solid #000000;
+    border-radius: 27px;
 `
 
 export default function Footer() {
@@ -54,9 +70,11 @@ export default function Footer() {
         </Logo>
         <Configuration />
         <About>
-            <CenterText>
-                ABOUT
-            </CenterText>
+            <Pill>
+                <CenterText>
+                    ABOUT
+                </CenterText>
+            </Pill>
         </About>
     </Container>
 }

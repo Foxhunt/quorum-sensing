@@ -60,7 +60,7 @@ export default function Quorum() {
             const cell = Bodies.circle(
                 width * Math.random(),
                 height * Math.random(),
-                10, { frictionAir: 0.1 })
+                14, { frictionAir: 0.1 })
             World.add(engine.world, cell)
             cells.push(cell)
         }
@@ -69,7 +69,7 @@ export default function Quorum() {
             const inducer = Bodies.circle(
                 width * Math.random(),
                 height * Math.random(),
-                5, { frictionAir: 0.1 })
+                10, { frictionAir: 0.1 })
             World.add(engine.world, inducer)
             inducers.push(inducer)
         }
@@ -107,7 +107,7 @@ export default function Quorum() {
             {inducers.map(
                 (inducer, index) =>
                     <Cell
-                        image={"/green.png"}
+                        image={"/green2.png"}
                         position={[inducer.position.x, inducer.position.y]}
                         key={index} />
             )}
@@ -115,7 +115,7 @@ export default function Quorum() {
         {cells.map(
             (cell, index) =>
                 <Cell
-                    image={"/white.png"}
+                    image={"/white2.png"}
                     position={[cell.position.x, cell.position.y]}
                     key={index} />
         )}
