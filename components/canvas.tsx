@@ -8,16 +8,13 @@ const BlockStage = styled(Stage)`
     display: block;
 `
 
-export default function Canvas({ hideTitle }: { hideTitle: () => void }) {
+export default function Canvas() {
     const [width, height] = useWindowSize()
 
     return (
         <BlockStage
-            onPointerMove={() => {
-                hideTitle()
-            }}
             width={width}
-            height={height} >
+            height={height - 70} >
             <Quorum />
         </BlockStage>
     )
