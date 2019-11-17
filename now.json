@@ -1,0 +1,8 @@
+{
+    "routes": [
+      {
+        "src": ".*(oft|ttf)",
+        "headers": { "cache-control": "maxage=604800" }
+      }
+    ]
+  }
