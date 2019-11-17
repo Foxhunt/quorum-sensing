@@ -26,10 +26,10 @@ const Text = styled.div`
     color: #000000;
 `
 
-export default function Configuration() {
+export default function Configuration({ setFrictionAir }) {
     return <Container>
         <Text><CenterText>SLOW</CenterText></Text>
-        <Slider />
+        <Slider setFrictionAir={setFrictionAir} />
         <Text><CenterText>WILD</CenterText></Text>
     </Container>
 }

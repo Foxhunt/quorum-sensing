@@ -61,14 +61,15 @@ const Pill = styled.span`
     border-radius: 27px;
 `
 
-export default function Footer() {
+export default function Footer({ setFrictionAir }) {
     return <Container>
         <Logo>
             <CenterText>
                 Quo·rum
             </CenterText>
         </Logo>
-        <Configuration />
+        <Configuration
+            setFrictionAir={setFrictionAir} />
         <About>
             <Pill>
                 ABOUT

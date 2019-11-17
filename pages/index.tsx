@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { createGlobalStyle } from 'styled-components'
 import dynamic from 'next/dynamic'
 
@@ -29,9 +30,10 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default function Index() {
+  const [frictionAir, setFrictionAir] = useState(0.1)
   return <>
     <GlobalStyle />
-    <Canvas />
-    <Footer />
+    <Canvas frictionAir={frictionAir} />
+    <Footer setFrictionAir={setFrictionAir} />
   </>
 }

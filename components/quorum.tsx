@@ -25,7 +25,7 @@ export const WorldContext = createContext<worldContext>({
     setTick: () => null
 })
 
-export default function Quorum() {
+export default function Quorum({ frictionAir }) {
     const app = useApp()
     const [width, height] = useWindowSize()
     const [cells, setCells] = useState<cells>([])
@@ -69,7 +69,7 @@ export default function Quorum() {
             const inducer = Bodies.circle(
                 width * Math.random(),
                 height * Math.random(),
-                10, { frictionAir: 0.1 })
+                10, { frictionAir })
             World.add(engine.world, inducer)
             inducers.push(inducer)
         }
@@ -77,17 +77,23 @@ export default function Quorum() {
     }, [])
 
     useEffect(() => {
+        for(const body of [...cells, ...inducers]) {
+            Body.set(body, "frictionAir", frictionAir + 0.09)
+        }
+    }, [frictionAir])
+
+    useEffect(() => {
         function tick() {
             setTick(tick => !tick)
         }
         const mouse = Mouse.create(app.renderer.view)
         function translateGrav() {
-            if (!mouse.position.x) {
+            if (!mouse.mousedownPosition.x) {
                 return
             }
             Body.translate(grav.current, {
-                x: (mouse.position.x - grav.current.position.x) * 0.25,
-                y: (mouse.position.y - grav.current.position.y) * 0.25
+                x: (mouse.mousedownPosition.x - grav.current.position.x) * 0.25,
+                y: (mouse.mousedownPosition.y - grav.current.position.y) * 0.25
             })
         }
 
