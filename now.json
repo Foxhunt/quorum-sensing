@@ -2,7 +2,7 @@
     "routes": [
       {
         "src": ".*(otf|ttf)",
-        "headers": { "cache-control": "public, maxage=604800, immutable" }
+        "headers": { "Cache-Control": "public, max-age=604800, immutable" }
       }
     ]
   }
