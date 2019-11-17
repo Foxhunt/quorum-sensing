@@ -14,7 +14,7 @@ export default function Canvas() {
     return (
         <BlockStage
             width={width}
-            height={height - 70} >
+            height={height - 75} >
             <Quorum />
         </BlockStage>
     )

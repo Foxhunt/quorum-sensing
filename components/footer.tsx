@@ -7,7 +7,7 @@ const Container = styled.footer`
     bottom: 0px;
 
     width: 100%;
-    height: 68px;
+    height: 70px;
 
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-top: 5px solid #000000;
@@ -52,10 +52,10 @@ const About = styled.div`
     opacity: 1;
 `
 
-const Pill = styled.div`
-    display: inline-block;
+const Pill = styled.span`
     width: 250px;
     height: 50px;
+    line-height: 40px;
     box-sizing: border-box;
     border: 5px solid #000000;
     border-radius: 27px;
@@ -71,9 +71,7 @@ export default function Footer() {
         <Configuration />
         <About>
             <Pill>
-                <CenterText>
-                    ABOUT
-                </CenterText>
+                ABOUT
             </Pill>
         </About>
     </Container>

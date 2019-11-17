@@ -28,8 +28,8 @@ const Text = styled.div`
 
 export default function Configuration() {
     return <Container>
-        <Text><CenterText>Slow</CenterText></Text>
+        <Text><CenterText>SLOW</CenterText></Text>
         <Slider />
-        <Text><CenterText>Wild</CenterText></Text>
+        <Text><CenterText>WILD</CenterText></Text>
     </Container>
 }
