@@ -69,7 +69,7 @@ export default function Quorum({ frictionAir }) {
             const inducer = Bodies.circle(
                 width * Math.random(),
                 height * Math.random(),
-                10, { frictionAir })
+                10, { frictionAir: 0.1 - frictionAir * 0.1 })
             World.add(engine.world, inducer)
             inducers.push(inducer)
         }
@@ -77,8 +77,8 @@ export default function Quorum({ frictionAir }) {
     }, [])
 
     useEffect(() => {
-        for(const body of [...cells, ...inducers]) {
-            Body.set(body, "frictionAir", frictionAir + 0.09)
+        for (const body of [...cells, ...inducers]) {
+            Body.set(body, "frictionAir", 0.1 - frictionAir * 0.1)
         }
     }, [frictionAir])
 

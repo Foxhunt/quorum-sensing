@@ -39,21 +39,31 @@ export default function Slider({setFrictionAir}) {
 
     useEffect(() => {
         const unsubX = x.onChange(() => {
-            if(dragConstraintRef.current){
-                const width = dragConstraintRef.current.clientWidth / 2
-                setFrictionAir((x.get() / width) * -0.1)
+            if (dragConstraintRef.current) {
+                const width = dragConstraintRef.current.clientWidth / 2 - 64 / 2
+                setFrictionAir(Math.round(x.get()) / Math.round(width))
             }
         })
         return () => { unsubX() }
     }, [])
 
-    return <Container>
-        <Line ref={dragConstraintRef}>
+    return <Container
+        onClick={({ currentTarget, pageX }) => {
+            let newX = pageX - currentTarget.offsetLeft - currentTarget.clientWidth / 2
+            if (newX > currentTarget.clientWidth / 2 - 64 / 2) {
+                newX = currentTarget.clientWidth / 2 - 64 / 2
+            } else if (newX < -currentTarget.clientWidth / 2 + 64 / 2) {
+                newX = -currentTarget.clientWidth / 2 + 64 / 2
+            }
+            x.set(newX)
+        }}>
+        <Line
+            ref={dragConstraintRef}>
             <Slideble
                 style={{ y: "-11.5px", x }}
                 drag="x"
                 dragMomentum={false}
-                dragElastic={0.09}
+                dragElastic={0.2}
                 dragConstraints={dragConstraintRef} />
         </Line>
     </Container>

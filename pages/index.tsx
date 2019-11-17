@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default function Index() {
-  const [frictionAir, setFrictionAir] = useState(0.1)
+  const [frictionAir, setFrictionAir] = useState(0)
   return <>
     <GlobalStyle />
     <Canvas frictionAir={frictionAir} />
