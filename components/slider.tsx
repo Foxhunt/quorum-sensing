@@ -33,7 +33,7 @@ const Slideble = styled(motion.div)`
     opacity: 1;
 `
 
-export default function Slider({setFrictionAir}) {
+export default function Slider({ setFrictionAir }) {
     const dragConstraintRef = useRef<HTMLDivElement>(null)
     const x = useMotionValue(0)
 
@@ -49,7 +49,7 @@ export default function Slider({setFrictionAir}) {
 
     return <Container
         onClick={({ currentTarget, pageX }) => {
-            let newX = pageX - currentTarget.offsetLeft - currentTarget.clientWidth / 2
+            let newX = pageX - currentTarget.offsetLeft - currentTarget.clientWidth / 2 - 4
             if (newX > currentTarget.clientWidth / 2 - 64 / 2) {
                 newX = currentTarget.clientWidth / 2 - 64 / 2
             } else if (newX < -currentTarget.clientWidth / 2 + 64 / 2) {
@@ -60,7 +60,7 @@ export default function Slider({setFrictionAir}) {
         <Line
             ref={dragConstraintRef}>
             <Slideble
-                style={{ y: "-11.5px", x }}
+                style={{ y: "-11.5px", x, textAlign: "center" }}
                 drag="x"
                 dragMomentum={false}
                 dragElastic={0.2}

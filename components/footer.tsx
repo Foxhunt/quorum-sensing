@@ -19,43 +19,41 @@ const Container = styled.footer`
     overflow-y: auto;
 `
 
-const Logo = styled.div`
-    display: inline-block;
-    
-    max-width: 300px;
-    flex: 1;
+const OuterText = styled.div`
+    height: 70px;
 
-    border-right: 5px solid #000000;
-
-    text-align: center;
-    font: 40px/48px Pilowlava;
-    letter-spacing: 0;
-    color: #000000;
-    opacity: 1;
-`
-
-const About = styled.div`
     display: flex;
 
     justify-content: center;
     align-items: center;
 
-    max-width: 300px;
-    flex: 1;
-
-    border-left: 5px solid #000000;
+    padding-left: 20px;
+    padding-right: 20px;
 
     text-align: center;
-    font: Bold 24px Space Mono;
     letter-spacing: 0;
     color: #000000;
     opacity: 1;
+
+    @media (max-width: 600px) {
+        flex: 0 0 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+`
+
+const Logo = styled(OuterText)`
+    font: 40px/48px Pilowlava;
+`
+
+const About = styled(OuterText)`
+    font: bold 38px/57px Space Mono;
 `
 
 const Pill = styled.span`
     width: 250px;
-    height: 50px;
-    line-height: 40px;
+    height: 53px;
+    line-height: 43px;
     box-sizing: border-box;
     border: 5px solid #000000;
     border-radius: 27px;

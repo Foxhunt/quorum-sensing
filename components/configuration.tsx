@@ -6,9 +6,15 @@ import { CenterText } from "./centerText"
 const Container = styled.div`
     width: 100%;
     flex: 1;
-    @media (max-width: 600px) {
+    
+    border-right: 5px solid #000000;
+    border-left: 5px solid #000000;
+
+    @media (max-width: 1000px) {
         order: -1;
         flex: 0 0 100%;
+        border-right: none;
+        border-left: none;
     }
 
     display: flex;
@@ -17,7 +23,8 @@ const Container = styled.div`
 `
 
 const Text = styled.div`
-    width: 160px;
+    margin-left: 20px;
+    margin-right: 20px;
     height: 100%;
     text-align: center;
     
