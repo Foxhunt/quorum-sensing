@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef } from 'react'
+import { createContext, useState, useEffect, useRef, useCallback } from 'react'
 import { ParticleContainer, useApp } from '@inlet/react-pixi'
 import { useWindowSize } from 'web-api-hooks'
 import Cell from './cell'
@@ -31,6 +31,24 @@ export default function Quorum({ frictionAir }) {
     const [cells, setCells] = useState<cells>([])
     const [inducers, setInducers] = useState<cells>([])
     const [tick, setTick] = useState(false)
+    const [gravActive, setGravActive] = useState(false)
+
+    const attractor = useCallback((bodyA, bodyB) => {
+        return gravActive ? ({
+            x: (bodyA.position.x - bodyB.position.x) * 1e-6,
+            y: (bodyA.position.y - bodyB.position.y) * 1e-6,
+        }) : ({
+            x: 0,
+            y: 0
+        })
+    }, [gravActive])
+
+    const attractorRef = useRef(attractor)
+
+    useEffect(() => {
+        attractorRef.current = attractor
+    }, [attractor])
+
     const grav = useRef(Bodies.circle(
         width / 2,
         height / 2,
@@ -39,12 +57,7 @@ export default function Quorum({ frictionAir }) {
             isStatic: true,
             plugin: {
                 attractors: [
-                    function (bodyA, bodyB) {
-                        return {
-                            x: (bodyA.position.x - bodyB.position.x) * 1e-6,
-                            y: (bodyA.position.y - bodyB.position.y) * 1e-6,
-                        };
-                    }
+                    (bodyA, bodyB) => attractorRef.current(bodyA, bodyB)
                 ]
             }
         }))
@@ -65,16 +78,22 @@ export default function Quorum({ frictionAir }) {
             cells.push(cell)
         }
         setCells([...cells])
-        for (let i = 0; i < 30; i++) {
-            const inducer = Bodies.circle(
-                width * Math.random(),
-                height * Math.random(),
-                10, { frictionAir: 0.1 - frictionAir * 0.1 })
-            World.add(engine.world, inducer)
-            inducers.push(inducer)
-        }
-        setInducers([...inducers])
     }, [])
+
+    useEffect(() => {
+        if (gravActive && inducers.length < 100) {
+            setTimeout(() => {
+                const cell = cells[Math.floor(Math.random() * cells.length)]
+                const inducer = Bodies.circle(
+                    cell.position.x,
+                    cell.position.y,
+                    10, { frictionAir: 0.1 - frictionAir * 0.1 })
+                World.add(engine.world, inducer)
+                inducers.push(inducer)
+                setInducers([...inducers])
+            }, 50)
+        }
+    }, [gravActive, inducers.length])
 
     useEffect(() => {
         for (const body of [...cells, ...inducers]) {
@@ -91,6 +110,7 @@ export default function Quorum({ frictionAir }) {
             if (!mouse.mousedownPosition.x) {
                 return
             }
+            !gravActive && setGravActive(true)
             Body.translate(grav.current, {
                 x: (mouse.mousedownPosition.x - grav.current.position.x) * 0.25,
                 y: (mouse.mousedownPosition.y - grav.current.position.y) * 0.25
