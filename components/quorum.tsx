@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { ParticleContainer, useApp } from '@inlet/react-pixi'
 import { useWindowSize } from 'web-api-hooks'
 import Cell from './cell'
@@ -7,23 +7,6 @@ import { Bodies, Body, World, Events, Mouse } from 'matter-js'
 
 export type cells = Body[]
 type setPositions = (positions: cells) => void
-export type worldContext = {
-    cells: cells,
-    setCells: setPositions
-    inducers: cells,
-    setInducers: setPositions,
-    tick: boolean,
-    setTick: (tick: boolean) => void
-}
-
-export const WorldContext = createContext<worldContext>({
-    cells: [],
-    setCells: () => null,
-    inducers: [],
-    setInducers: () => null,
-    tick: false,
-    setTick: () => null
-})
 
 export default function Quorum({ frictionAir }) {
     const app = useApp()
@@ -81,7 +64,7 @@ export default function Quorum({ frictionAir }) {
     }, [])
 
     useEffect(() => {
-        if (gravActive && inducers.length < 100) {
+        if (gravActive && inducers.length < 20) {
             setTimeout(() => {
                 const cell = cells[Math.floor(Math.random() * cells.length)]
                 const inducer = Bodies.circle(
@@ -126,7 +109,7 @@ export default function Quorum({ frictionAir }) {
         }
     }, [engine])
 
-    return <WorldContext.Provider value={{ tick, setTick, cells, setCells, inducers, setInducers }}>
+    return <>
         <ParticleContainer
             interactive
             properties={{ position: true }}>
@@ -145,5 +128,5 @@ export default function Quorum({ frictionAir }) {
                     position={[cell.position.x, cell.position.y]}
                     key={index} />
         )}
-    </WorldContext.Provider>
+    </>
 }
